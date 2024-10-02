@@ -177,15 +177,26 @@ check_status() {
 	[ $? -eq 0 ] && echo -e "${GREEN}Online${WHITE}" && check_update || echo -e "${RED}Offline${WHITE}"
 }
 
+#!/bin/bash
+
+# Define color variables
+ORANGE='\033[0;33m'
+RED='\033[0;31m'
+BLUE='\033[0;34m'
+WHITE='\033[0;37m'
+
+# Define version
+__version__="1.0.0"
+
 ## Banner
 banner() {
 	cat <<- EOF
    ${ORANGE}                 ________                 __   __________.__    .__       .__     
-   ${ORANGE}                 \______ \  __ __   ____ |  | _\______   \  |__ |__| _____|  |__  
-   ${ORANGE}                   |    |  \|  |  \_/ ___\|  |/ /|     ___/  |  \|  |/  ___/  |  \ 
-   ${ORANGE}                   |    `   \  |  /\  \___|    < |    |   |   Y  \  |\___ \|   Y  \
-   ${ORANGE}                  /_______  /____/  \___  >__|_ \|____|   |___|  /__/____  >___|  /
-   ${ORANGE}                           \/            \/     \/              \/        \/     \/    ${RED}Version : ${__version__}
+   ${ORANGE}                 \\______ \\  __ __   ____ |  | _\\______   \\  |__ |__| _____|  |__  
+   ${ORANGE}                   |    |  \\|  |  \\_/ ___\\|  |/ /|     ___/  |  \\|  |/  ___/  |  \\ 
+   ${ORANGE}                   |    \`   \\  |  /\\  \\___|    < |    |   |   Y  \\  |\\___ \\|   Y  \\
+   ${ORANGE}                  /_______  /____/  \\___  >__|_ \\|____|   |___|  /__/____  >___|  /
+   ${ORANGE}                           \\/            \\/     \\/              \\/        \\/     \\/    ${RED}Version : ${__version__}
 	EOF
 }
 
@@ -193,13 +204,17 @@ banner() {
 banner_small() {
 	cat <<- EOF
 ${BLUE}  _____             _    _____  _     _     _     
-${BLUE} |  __ \           | |  |  __ \| |   (_)   | |    
+${BLUE} |  __ \\           | |  |  __ \\| |   (_)   | |    
 ${BLUE} | |  | |_   _  ___| | _| |__) | |__  _ ___| |__  
-${BLUE} | |  | | | | |/ __| |/ /  ___/| '_ \| / __| '_ \ 
-${BLUE} | |__| | |_| | (__|   <| |    | | | | \__ \ | | |
-${BLUE} |_____/ \__,_|\___|_|\_\_|    |_| |_|_|___/_| |_|${WHITE} ${__version__}
+${BLUE} | |  | | | | |/ __| |/ /  ___/| '_ \\| / __| '_ \\ 
+${BLUE} | |__| | |_| | (__|   <| |    | | | | \\__ \\ | | |
+${BLUE} |_____/ \\__,_|\\___|_|\\_\\_|    |_| |_|_|___/_| |_|${WHITE} ${__version__}
 	EOF
 }
+
+# Call the banner functions to test
+banner
+banner_small
 
 ## Dependencies
 dependencies() {
