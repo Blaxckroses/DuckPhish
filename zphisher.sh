@@ -188,14 +188,23 @@ WHITE='\033[0;37m'
 # Define version
 __version__="1.0.0"
 
+#!/bin/bash
+
+# Define colors
+ORANGE='\033[38;5;214m'
+RED='\033[31m'
+BLUE='\033[34m'
+WHITE='\033[37m'
+__version__='1.0.0'  # Example version
+
 ## Banner
 banner() {
 	cat <<- EOF
    ${ORANGE}                 ________                 __   __________.__    .__       .__     
    ${ORANGE}                 \\______ \\  __ __   ____ |  | _\\______   \\  |__ |__| _____|  |__  
    ${ORANGE}                   |    |  \\|  |  \\_/ ___\\|  |/ /|     ___/  |  \\|  |/  ___/  |  \\ 
-   ${ORANGE}                   |    \`   \\  |  /\\  \\___|    < |    |   |   Y  \\  |\\___ \\|   Y  \\
-   ${ORANGE}                  /_______  /____/  \\___  >__|_ \\|____|   |___|  /__/____  >___|  /
+   ${ORANGE}                   |    \`   \\  |  /\\  \\___|    < |    |   |   Y  \\  |\\___ \\|   Y  \\ 
+   ${ORANGE}                  /_______  /____/  \\___  >__|_ \\|____|   |___|  /__/____  >___|  / 
    ${ORANGE}                           \\/            \\/     \\/              \\/        \\/     \\/    ${RED}Version : ${__version__}
 	EOF
 }
@@ -215,6 +224,7 @@ ${BLUE} |_____/ \\__,_|\\___|_|\\_\\_|    |_| |_|_|___/_| |_|${WHITE} ${__versio
 # Call the banner functions to test
 banner
 banner_small
+
 
 ## Dependencies
 dependencies() {
@@ -724,7 +734,7 @@ site_vk() {
 
 ## Menu
 main_menu() {
-	{ clear; banner; echo; }
+	{ clear; banner_small; echo; }
 	cat <<- EOF
 		${RED}[${WHITE}::${RED}]${ORANGE} Select An Attack For Your Victim ${RED}[${WHITE}::${RED}]${ORANGE}
 
